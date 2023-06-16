@@ -1,0 +1,46 @@
+{% extends 'app/base.html' %}
+
+{% load static %}
+
+
+ 
+{% block css %}
+
+{% endblock %}
+
+
+{% block contenido %}
+{%  load crispy_forms_tags %}
+<!-- ####################################################################################################### -->
+<div class="wrapper col2">
+  <div id="container" class="clear">
+    <!-- ####################################################################################################### -->
+    <div id="content">
+      <div id="comments">
+        <h2>Comentarios</h2>
+      </div>
+      <h2>¿En que podemos ayudarte?</h2>
+      <div  >
+        <div >
+
+          <form action="" class="" method="post">
+            {% csrf_token %}
+            {{ form | crispy }}
+            <br>
+            <div class="d-flex justify-content-end">
+              
+              <input type="reset" value="Cancelar" class="bnt btn-secondary">
+              &nbsp;
+              <button type="submit" class="btn btn-primary">Enviar</button>
+            </div>
+          </form>
+          {{ mensaje }}
+        </div>
+      </div>
+    </div>
+
+    <!-- ####################################################################################################### -->
+  </div>
+</div>
+<!-- ####################################################################################################### -->
+{% endblock %}

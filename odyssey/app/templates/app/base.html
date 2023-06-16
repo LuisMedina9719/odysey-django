@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Odyssey.cl</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    {% load static %}
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+      crossorigin="anonymous"
+    />
+
+    {% block css %} {% endblock %}
+    <link
+      rel="stylesheet"
+      href="{% static 'app/css/layout.css' %}"
+      type="text/css"
+    />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+  </head>
+
+  <body id="top">
+    <!--- loader de pagina-->
+    <div class="loader"><img src="images/demo/loading.gif" alt="" /></div>
+    <!---encabezado de pagina-->
+    <div class="covid"><img src="images/demo/podria-ser.png" /></div>
+
+    <div class="wrapper col1">
+      <div id="header" class="clear">
+        <div class="fl_left">
+          <h1><a href="{% url 'home' %}">Odyssey Gaming</a></h1>
+
+          <p>La Tienda para mejorar tu rendimiento</p>
+        </div>
+        <div class="fl_right">
+          <a href="#"
+            ><img src="images/demo/icono3.1.png" alt="" width="200"
+          /></a>
+        </div>
+      </div>
+    </div>
+    <!-- ####################################################################################################### -->
+    <div class="wrapper col1">
+      <div id="topbar" class="clear">
+        <ul id="topnav">
+          <li ><a href="{% url 'home' %}">Inicio</a></li>
+          <li><a href="{% url 'contacto' %}">Contacto</a></li>
+          <li>
+            <a>Menu</a>
+            <ul>
+              <li><a href="#">Carrito de compras</a></li>
+              {% if user.is_authenticated %}
+              <li>
+                <a href="{% url 'logout' %}">Cerrar Sesion</a>
+              </li>
+              <li>
+                <a href="{% url 'administrador' %}">administrar</a>
+              </li>
+              <li>
+                <a href="#">@{{ user.username }}</a>
+              </li>
+              {% else %}
+              <li><a href="{% url 'login' %}">Iniciar Sesion</a></li>
+              <li><a href="{% url 'cliente_registro' %}">Registrate</a></li>
+              {% endif %}
+            </ul>
+          </li>
+          <li><a href="pages/portfolio.html">Nosotros</a></li>
+          <li >
+            <a href="{% url 'listar_productos' %}">Productos</a>
+          </li>
+          {% if perms.app.add_producto %}
+          <li class="last">
+            <a href="{% url 'agregar_producto' %}">agregar productos</a>
+          </li>
+          {% endif %}
+        </ul>
+        <div style="float: right;">
+          <a href="{% url 'mostrar_carro' %}" style="color: white;">Carro de compras:</a>
+          <p style="color: white;">{{ importe_total_carro }} $</p>
+        </div>
+      </div>
+    </div>
+    <!-- ####################################################################################################### -->
+    <div>{% block contenido %} {% endblock %}</div>
+    <!-- ####################################################################################################### -->
+    <div class="wrapper">
+      <div id="footer" class="clear">
+        <div class="footbox">
+          <h2>Acerca de nosotros.</h2>
+          <p>
+            Somos <b>odyssey</b> una tienda de ventas de hardware y armados de
+            pc de alta gama. Vendemos los mejores perifericos para mejorar tu
+            rendimiento en tu partida.
+          </p>
+          <p>Recuerda los fps ganan partidas.</p>
+        </div>
+        <div class="footbox">
+          <h2></h2>
+        </div>
+        <div class="footbox">
+          <h2></h2>
+        </div>
+        <div class="footbox last">
+          <h2>Mantengamonos en contacto</h2>
+          <ul>
+            <li>
+              <a
+                href="https://www.facebook.com/odyssey.gaming.522"
+                target="_BLANK"
+                ><img
+                  src="{% static 'app/img/facebook.png' %}"
+                  alt="facebook"
+                />
+                Nuestro Facebook</a
+              >
+            </li>
+            <li>
+              <a href="https://twitter.com/odyssey16446718" target="_BLANK"
+                ><img src="{% static 'app/img/twitter.png' %}" alt="facebook" />
+                Nuestro Tweeter</a
+              >
+            </li>
+          </ul>
+          <h2>Contactanos</h2>
+          <ul>
+            <li>
+              <strong class="title">Tel:</strong><br />
+              +569 5275 8784
+            </li>
+            <li>
+              <strong class="title">Email:</strong><br />
+              <a href="https://www.google.com/intl/es-419/gmail/about/"
+                >odysseygaming.contact@gmail.com</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- ####################################################################################################### -->
+    <div class="wrapper">
+      <div id="copyright" class="clear">
+        <p class="fl_left">
+          Copyright &copy; 2014 - All Rights Reserved -
+          <a href="#">Domain Name</a>
+        </p>
+        <p class="fl_right">
+          Template by
+          <a
+            target="_blank"
+            href="http://www.os-templates.com/"
+            title="Free Website Templates"
+            >OS Templates</a
+          >
+        </p>
+      </div>
+    </div>
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {% if messages %} 
+      {% for m in messages %} 
+        <script>
+          swal.fire({
+            "title": "Felicitaciones",
+            "text": "{{m}}",
+            "icon": "success"
+          })
+        </script>
+      {% endfor %} 
+    {% endif %}
+    {% block js %} {% endblock %}
+  </body>
+</html>

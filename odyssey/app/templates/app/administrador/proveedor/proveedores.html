@@ -1,0 +1,60 @@
+{% extends 'app/administrador/base_admin.html' %}
+{% block js_admin %}
+
+<script>
+  function eliminarProveedor(id_proveedor) {
+    swal.fire({
+      "title": "¿Estas Seguro?",
+      "text": "Esta accion no se puede deshacer",
+      "icon": "question",
+      "showCancelButton":true,
+      "confirmButtonText":"Sí, Eliminar",
+      "cancelButtonText":"No, Cancelar",
+      "reverseButtons":true,
+      "confirmButtonColor":"#dc3545"
+    })
+    .then(function(result){
+      if(result.isConfirmed){
+        window.location.href = "/eliminar-proveedor/"+id_proveedor+"/"
+      }
+    })
+  }
+</script>
+
+{% endblock %}
+{% block administrador %} {% load humanize %}
+<div class="card">
+  <div class="card-body">
+    <h2>Listado de productos</h2>
+    <hr>
+    <table class="table table-stripped table-hover table-responsive-sm">
+      <tr>
+        <th>ID</th>
+        <th>Proveedor</th>
+
+      </tr>
+      {% for p in entity %}
+
+      <tr>
+        <td>{{ p.id_proveedor | title }}</td>
+        <td>{{ p.nombres | title }}</td>
+        <td>
+          <a href="{% url 'modificar_proveedor' p.id_proveedor %}" class="btn btn-info">Editar</a>
+          <a href="#" onclick="eliminarProveedor({{ p.id_proveedor }})" class="btn btn-danger">Eliminar</a>
+
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+    <hr>
+    <div>
+      {% include 'app/paginator.html' %}
+    </div>
+    <hr>
+    <div class="btn">
+        <a href="{% url 'agregar_proveedor' %}" class="btn btn-primary">Crear Proveedor</a>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

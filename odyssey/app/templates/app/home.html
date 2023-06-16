@@ -1,0 +1,184 @@
+{% extends 'app/base.html' %}
+
+{% load static %}
+
+{% block js %}
+<script type="text/javascript" src="{% static 'app/js/jquery.min.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'app/js/jquery.ui.min.js' %}"></script>
+<script type="text/javascript">
+  $(document).ready(function () {
+    $("#tabcontainer").tabs({
+      event: "click"
+    });
+  });
+</script>
+
+<script type="text/javascript" src="{% static 'app/js/jquery-photostack.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'app/js/jquery-coin-slider.min.js' %}"></script>
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('#portfolioslider').coinslider({
+      width: 480,
+      height: 280,
+      navigation: false,
+      links: false,
+      hoverPause: true
+    });
+  });
+</script>
+
+<script>
+    setTimeout(function () {
+      $('.loader').fadeToggle();
+    }, 2000);
+
+</script>
+
+
+{% endblock %}
+ 
+{% block css %}
+
+{% endblock %}
+
+
+{% block contenido %}
+{% load humanize %}
+<div class="wrapper col1">
+    <div id="featured_slide">
+      <!-- ####################################################################################################### -->
+      <div id="slider">
+        <ul id="categories">
+          {% for p in productos %}
+            <li class="category">
+              <h2>Set up</h2>
+              {% if p.imagen %}
+                <a href="#"><img src="{{ p.imagen.url }}" alt="" /></a>
+              {% endif %}
+                <p>{{ p.marca | capfirst }}</p>
+              <p> {{ p.nombre | capfirst }} </p>
+              <p> ${{ p.precio | intcomma }} </p>
+            </li>
+          {% endfor %}
+        </ul>
+        <a class="prev disabled"></a> <a class="next disabled"></a>
+        <div style="clear:both"></div>
+      </div>
+      <!-- ####################################################################################################### -->
+    </div>
+  </div>
+  <!-- ####################################################################################################### -->
+  <div class="wrapper col2">
+    <div id="container" class="clear">
+      <!-- ####################################################################################################### -->
+      <div id="tabcontainer">
+        <ul id="tabnav">
+          <li><a href="#tabs-1">Lo mas visto</a></li>
+          <li><a href="#tabs-2">Recomendacion de odyssey</a></li>
+          <li><a href="#tabs-3">Oferta!</a></li>
+        </ul>
+        <div id="tabs-1" class="tabcontainer">
+          <div id="hpage_services" class="clear">
+            <div class="block"><img src="images/demo/g502.jpg" alt="" /><strong>Logitech G502 HERO</strong>
+              <p>G502 HERO dispone de un sensor óptico avanzado para máxima precisión de seguimiento, iluminación RGB
+                personalizada, perfiles de juego personalizados, de 200 a 25.600 dpi y pesas reposicionables.</p>
+            </div>
+            <div class="block"><img src="images/demo/mamba.jpg" alt="" /><strong>Razer Mamba Elite</strong>
+              <p>El Razer Mamba Elite es el icónico ratón para juegos que conoces y te encanta, que cuenta con la mayor
+                iluminación Razer Chroma de la gama con 20 impresionantes zonas de iluminación.</p>
+            </div>
+            <div class="block last"><img src="images/demo/pulsefire.jpg" alt="" /><strong>HyperX Pulsefire
+                Surge</strong>
+              <p> Pulsefire Surge cuenta con ajustes nativos de PPP de hasta 16 000 ppp para lograr una precisión que
+                satisfaga incluso a los francotiradores digitales más exigentes. Las teclas Omron eficaces para 50
+                millones de clics garantizan que una vez que tienes apuntado el tiro a la cabeza, el clic quedará
+                registrado de forma definitiva.</p>
+            </div>
+            <div class="spacer">&nbsp;</div>
+            <div class="block"><img src="images/demo/alloy.jpg" alt="" /><strong>HyperX Alloy Elite 2</strong>
+              <p>HyperX Alloy Elite 2 es el teclado para ti. Con teclas multimedia específicas y una gran rueda de
+                volumen, este teclado para juegos multifunción está listo para todo, desde edición de vídeo hasta ver
+                películas. Está construido con teclas mecánicas HyperX de gran fiabilidad equilibradas para velocidad y
+                capacidad de respuesta, por lo que puedes confiar en las entradas de tu teclado.</p>
+            </div>
+            <div class="block"><img src="images/demo/blackwidow.jpg" alt="" /><strong>Razer Blackwidow V2</strong>
+              <p>Diseñados específicamente para juegos, los switches mecánicos de Razer ofrecen puntos de accionamiento
+                y restablecimiento optimizados para que los comandos se ejecuten tal y como deberían, con una capacidad
+                de respuesta ultrarrápida</p>
+            </div>
+            <div class="block last"><img src="images/demo/ProX.png" alt="" /><strong>Logitech PRO X</strong>
+              <p>El diseño PRO X de eficacia probada en torneos, ahora con interruptores GX profesionales
+                intercambiables. Descubre cómo es el teclado mecánico para gaming personalizable, diseñado para los
+                mejores deportistas de eSports del mundo.</p>
+            </div>
+          </div>
+        </div>
+        <!-- ########### -->
+        <div id="tabs-2" class="tabcontainer">
+          <h2 class="title">El equipo de odyssey recomienda sus audifonos personales!</h2>
+          <ul class="line clear">
+            {% for p in productos %}
+              <li class="category">
+                <h2>Set up</h2>
+                {% if p.imagen %}
+                  <a href="#"><img src="{{ p.imagen.url }}" alt="" /></a>
+                {% endif %}
+                <p>{{ p.marca | capfirst }}</p>
+                <p> {{ p.nombre | capfirst }} </p>
+                <p> ${{ p.precio | intcomma }} </p>
+              </li>
+            {% endfor %}
+            
+          </ul>
+        </div>
+        <!-- ########### -->
+        <div id="tabs-3" class="tabcontainer">
+          <div id="hpage_portfolio" class="clear">
+            {% for p in productos %}
+            <div class="fl_left">
+            
+              <div id="portfolioslider">
+                <ul>
+                  {% if p.imagen %}
+                   <a><img src="{{ p.imagen.url }}"  alt="" /></a>
+                  {% endif %}
+                </ul>
+              </div>
+            </div>
+            <div class="fl_right">
+              <h2> {{ p.nombre | capfirst }}</h2>
+              <p>El nuevo mouse de razer odyssey lo trae con una oferta imperdible</p>
+              <ul>
+                <li>{{ p.descripcion }}</li>
+                
+              </ul>
+              <p>No te pierdas la mejor oferta de este mes muchos Helenos ya se han llevado el suyo QUE ESPERAS!</p>
+            </div>
+            {% endfor %}
+          </div>
+
+        </div>
+        <div id="column">
+          <div id="featured">
+            <ul>
+              <li>
+                <h2>Marca mas vista este mes</h2>
+                <p class="imgholder"><img src="images/demo/Logo.jpg" alt="" /></p>
+                <p>Este mes la marca que se ha llevado el corazon de los Helenos es razer con un diseño increible en
+                  cada uno de sus productos ha enamorado a cada uno de nuestros clientes convirtiendose asi la marca de
+                  este mes!</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="clear"></div>
+      </div>
+      <!-- ########### -->
+    </div>
+    <!-- ####################################################################################################### -->
+  </div>
+</div>
+
+{% endblock %}

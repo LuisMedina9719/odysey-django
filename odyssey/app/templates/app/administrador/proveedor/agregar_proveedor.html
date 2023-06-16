@@ -1,0 +1,38 @@
+{% extends 'app/administrador/base_admin.html' %} 
+{% load static %}
+{% block css_admin %}
+
+
+  
+  <link rel="stylesheet" href="{% static 'app/css/agregar_proveedor.css' %}">
+  
+  
+
+{% endblock %}
+{% block administrador %} {% load crispy_forms_tags %}
+
+<div class="group">
+
+  <div class="row">
+    <div class="col-12 col-md-6 offset-md-3">
+      <div class="card">
+        <div class="card-body">
+          <h4>Nuevo proveedor</h2>
+            <hr />
+            <form action="" method="post" enctype="multipart/form-data">
+              {% csrf_token %} {{ form | crispy}}
+              
+              <div class="d-flex justify-content-end">
+                <input type="reset" value="Cancelar" class="btn tbn-secondary" />
+                &nbsp;
+                <input type="submit" value="Guardar" class="btn btn-primary" />
+              </div>
+            </form>
+            {{ mensaje }}
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+    
+{% endblock %}
